@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Group 4 Lipbalm Project - IB Science</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #FFB6C1 0%, #ADD8E6 100%);
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+
+        header {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+            padding: 40px 20px;
+            text-align: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+        }
+
+        header p {
+            font-size: 1.2em;
+            opacity: 0.95;
+        }
+
+        nav {
+            background: linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%);
+            padding: 15px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        nav button {
+            background: white;
+            border: 2px solid #FFB6C1;
+            padding: 10px 25px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: bold;
+            color: #FF69B4;
+            transition: all 0.3s ease;
+        }
+
+        nav button:hover {
+            background: #FFB6C1;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
+            padding: 40px;
+        }
+
+        .section {
+            display: none;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            color: #FF69B4;
+            font-size: 2em;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #ADD8E6;
+        }
+
+        h3 {
+            color: #4169E1;
+            font-size: 1.5em;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+
+        .material-card {
+            background: linear-gradient(135deg, #FFF0F5 0%, #F0F8FF 100%);
+            border-left: 5px solid #FFB6C1;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .material-card h3 {
+            margin-top: 0;
+            color: #FF69B4;
+        }
+
+        .benefit-list {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .benefit-list li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .benefit-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #87CEEB;
+            font-weight: bold;
+            font-size: 1.3em;
+        }
+
+        .calculator-section {
+            background: linear-gradient(135deg, #FFF0F5 0%, #F0F8FF 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-top: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .admin-login {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .calculator-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            color: #FF69B4;
+            font-weight: bold;
+            margin-bottom: 8px;
+            font-size: 1.1em;
+        }
+
+        input[type="text"],
+        input[type="password"],
+        input[type="number"] {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ADD8E6;
+            border-radius: 10px;
+            font-size: 1em;
+            transition: border-color 0.3s ease;
+        }
+
+        input[type="text"]:focus,
+        input[type="password"]:focus,
+        input[type="number"]:focus {
+            outline: none;
+            border-color: #FFB6C1;
+        }
+
+        button.btn {
+            background: linear-gradient(135deg, #FFB6C1 0%, #FFC0CB 100%);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 25px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        button.btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        button.btn-secondary {
+            background: linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%);
+            margin-left: 10px;
+        }
+
+        .result-box {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border: 2px solid #FFB6C1;
+            display: none;
+        }
+
+        .result-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease-in;
+        }
+
+        .result-box h4 {
+            color: #FF69B4;
+            margin-bottom: 15px;
+        }
+
+        .result-item {
+            padding: 10px;
+            margin: 8px 0;
+            background: #F0F8FF;
+            border-radius: 5px;
+            border-left: 4px solid #ADD8E6;
+        }
+
+        .error {
+            color: #dc3545;
+            font-size: 0.9em;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .lipbalm-benefit {
+            background: linear-gradient(135deg, #FFF0F5 0%, #F0F8FF 100%);
+            padding: 25px;
+            border-radius: 15px;
+            margin-top: 20px;
+            border: 3px solid #FFB6C1;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+        }
+
+        .hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🌸 Natural Lipbalm Project 🌸</h1>
+            <p>Group 4 - IB Science Investigation</p>
+        </header>
+
+        <nav>
+            <button onclick="showSection('home')">Home</button>
+            <button onclick="showSection('materials')">Materials</button>
+            <button onclick="showSection('benefits')">Lipbalm Benefits</button>
+            <button onclick="showSection('admin')">Admin Calculator</button>
+        </nav>
+
+        <div class="content">
+            <!-- Home Section -->
+            <div id="home" class="section active">
+                <h2>Welcome to Our Lipbalm Project</h2>
+                <p style="font-size: 1.2em; line-height: 1.8; color: #555;">
+                    Welcome to our IB Group 4 Science Project! We have created a natural lipbalm using carefully selected ingredients that provide maximum moisturization and protection for your lips. Our formula combines the nourishing properties of shea butter, the protective qualities of beeswax, and delightful natural flavors.
+                </p>
+                <div class="lipbalm-benefit" style="margin-top: 30px;">
+                    <h3 style="margin-top: 0; color: #FF69B4;">About Our Project</h3>
+                    <p style="line-height: 1.8; color: #333;">
+                        This project explores the chemistry and benefits of natural lipbalm ingredients. Through scientific investigation, we've developed a formula that combines traditional ingredients with modern understanding of skincare. Explore our website to learn about each ingredient and use our admin calculator to create your own batches!
+                    </p>
+                </div>
+            </div>
+
+            <!-- Materials Section -->
+            <div id="materials" class="section">
+                <h2>Our Natural Ingredients</h2>
+                
+                <div class="material-card">
+                    <h3>🥥 Shea Butter</h3>
+                    <p><strong>Scientific Name:</strong> Vitellaria paradoxa</p>
+                    <p style="margin-top: 15px; line-height: 1.7; color: #555;">
+                        Shea butter is a fat extracted from the nut of the African shea tree. It's rich in fatty acids and vitamins, making it an excellent natural moisturizer.
+                    </p>
+                    <h4 style="color: #4169E1; margin-top: 15px;">Benefits:</h4>
+                    <ul class="benefit-list">
+                        <li><strong>Deep Moisturization:</strong> Contains oleic, stearic, palmitic, and linolenic acids that deeply hydrate lips</li>
+                        <li><strong>Anti-inflammatory Properties:</strong> Helps soothe chapped and irritated lips</li>
+                        <li><strong>Rich in Vitamins:</strong> Vitamins A and E promote cell regeneration and healing</li>
+                        <li><strong>Natural UV Protection:</strong> Provides mild sun protection (SPF 3-4)</li>
+                        <li><strong>Long-lasting Protection:</strong> Creates a protective barrier without clogging pores</li>
+                        <li><strong>Anti-aging Properties:</strong> Boosts collagen production for smoother lips</li>
+                    </ul>
+                </div>
+
+                <div class="material-card">
+                    <h3>🐝 Beeswax</h3>
+                    <p><strong>Scientific Name:</strong> Cera alba</p>
+                    <p style="margin-top: 15px; line-height: 1.7; color: #555;">
+                        Beeswax is a natural wax produced by honey bees. It serves as a natural emulsifier and helps create the perfect consistency for lipbalm.
+                    </p>
+                    <h4 style="color: #4169E1; margin-top: 15px;">Benefits:</h4>
+                    <ul class="benefit-list">
+                        <li><strong>Protective Barrier:</strong> Forms a protective layer on lips while allowing them to breathe</li>
+                        <li><strong>Locks in Moisture:</strong> Seals in hydration without drying out lips</li>
+                        <li><strong>Anti-bacterial Properties:</strong> Natural antibacterial and anti-inflammatory properties</li>
+                        <li><strong>Rich in Vitamin A:</strong> Supports cell reconstruction and health</li>
+                        <li><strong>Perfect Texture:</strong> Provides ideal consistency and structure to the lipbalm</li>
+                        <li><strong>Long-lasting Formula:</strong> Helps lipbalm stay on lips longer</li>
+                        <li><strong>Natural Preservative:</strong> Extends the shelf life of the product</li>
+                    </ul>
+                </div>
+
+                <div class="material-card">
+                    <h3>🍓 Strawberry Flavor Oil</h3>
+                    <p style="margin-top: 15px; line-height: 1.7; color: #555;">
+                        Natural strawberry flavoring adds a delightful taste and aroma to the lipbalm.
+                    </p>
+                    <h4 style="color: #4169E1; margin-top: 15px;">Benefits:</h4>
+                    <ul class="benefit-list">
+                        <li><strong>Pleasant Taste:</strong> Makes lip care more enjoyable</li>
+                        <li><strong>Aromatherapy:</strong> Sweet scent provides a mood-boosting effect</li>
+                        <li><strong>Natural Antioxidants:</strong> Contains beneficial compounds from strawberry extracts</li>
+                        <li><strong>Encourages Regular Use:</strong> Enjoyable flavor promotes consistent lip care</li>
+                    </ul>
+                </div>
+
+                <div class="material-card">
+                    <h3>🍇 Grape Flavor Oil</h3>
+                    <p style="margin-top: 15px; line-height: 1.7; color: #555;">
+                        Natural grape flavoring offers a fruity alternative with its own unique properties.
+                    </p>
+                    <h4 style="color: #4169E1; margin-top: 15px;">Benefits:</h4>
+                    <ul class="benefit-list">
+                        <li><strong>Refreshing Taste:</strong> Provides a pleasant grape flavor experience</li>
+                        <li><strong>Antioxidant Properties:</strong> Grape extracts contain resveratrol and other antioxidants</li>
+                        <li><strong>Soothing Aroma:</strong> Natural grape scent is calming and pleasant</li>
+                        <li><strong>Variety:</strong> Offers alternative flavor option for different preferences</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Benefits Section -->
+            <div id="benefits" class="section">
+                <h2>Benefits of Our Lipbalm</h2>
+                
+                <div class="lipbalm-benefit">
+                    <h3>🌟 Overall Lipbalm Benefits</h3>
+                    <ul class="benefit-list" style="margin-top: 20px;">
+                        <li><strong>Complete Lip Protection:</strong> Shields lips from harsh weather, wind, and sun damage</li>
+                        <li><strong>Intensive Hydration:</strong> Deeply moisturizes and prevents dryness and cracking</li>
+                        <li><strong>Natural Formula:</strong> Made with 100% natural ingredients, free from harmful chemicals</li>
+                        <li><strong>Healing Properties:</strong> Helps repair damaged, chapped lips quickly</li>
+                        <li><strong>Smooth Texture:</strong> Creates soft, smooth lips perfect for everyday wear</li>
+                        <li><strong>Long-lasting Effect:</strong> Stays on lips longer than conventional lipbalms</li>
+                        <li><strong>Safe for All Ages:</strong> Natural ingredients suitable for everyone</li>
+                        <li><strong>Environmentally Friendly:</strong> Sustainable and biodegradable ingredients</li>
+                    </ul>
+                </div>
+
+                <div class="lipbalm-benefit">
+                    <h3>🔬 Scientific Benefits</h3>
+                    <ul class="benefit-list" style="margin-top: 20px;">
+                        <li><strong>Fatty Acid Complex:</strong> Combination of oleic, stearic, and palmitic acids provides optimal hydration</li>
+                        <li><strong>Vitamin Enriched:</strong> Vitamins A and E promote cellular health and regeneration</li>
+                        <li><strong>Natural Emollients:</strong> Softens and soothes lip tissue</li>
+                        <li><strong>pH Balanced:</strong> Formula maintains natural lip pH for optimal health</li>
+                        <li><strong>Non-comedogenic:</strong> Won't clog pores or cause irritation</li>
+                    </ul>
+                </div>
+
+                <div class="lipbalm-benefit">
+                    <h3>💚 Health & Wellness Benefits</h3>
+                    <ul class="benefit-list" style="margin-top: 20px;">
+                        <li><strong>Prevents Chapping:</strong> Regular use keeps lips healthy and prevents cracking</li>
+                        <li><strong>Reduces Inflammation:</strong> Natural anti-inflammatory properties soothe irritation</li>
+                        <li><strong>Promotes Healing:</strong> Accelerates recovery of damaged lip tissue</li>
+                        <li><strong>Anti-aging Effects:</strong> Reduces appearance of fine lines on lips</li>
+                        <li><strong>Enhances Natural Color:</strong> Healthy lips maintain their natural rosy color</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Admin Calculator Section -->
+            <div id="admin" class="section">
+                <h2>Admin Formula Calculator</h2>
+                
+                <div id="loginSection" class="calculator-section">
+                    <div class="admin-login">
+                        <h3>Admin Access</h3>
+                        <p style="color: #666; margin-bottom: 20px;">Please enter the admin password to access the formula calculator</p>
+                        <div class="form-group">
+                            <label>Password:</label>
+                            <input type="password" id="adminPassword" placeholder="Enter admin password">
+                            <span class="error" id="loginError">Incorrect password. Try: admin123</span>
+                        </div>
+                        <button class="btn" onclick="adminLogin()">Access Calculator</button>
+                    </div>
+                </div>
+
+                <div id="calculatorSection" class="calculator-section hidden">
+                    <h3>Lipbalm Formula Calculator</h3>
+                    <p style="color: #666; margin-bottom: 25px;">
+                        Calculate the exact amounts of each ingredient needed for your lipbalm batch. 
+                        Standard ratio is 50% Shea Butter, 40% Beeswax, and 10% Flavor Oil (total).
+                    </p>
+
+                    <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Total Batch Weight (grams):</label>
+                            <input type="number" id="totalWeight" placeholder="e.g., 100" min="1" value="100">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Shea Butter Percentage (%):</label>
+                            <input type="number" id="sheaPercent" placeholder="Default: 50" min="0" max="100" value="50">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Beeswax Percentage (%):</label>
+                            <input type="number" id="beeswaxPercent" placeholder="Default: 40" min="0" max="100" value="40">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Strawberry Flavor Oil Percentage (%):</label>
+                            <input type="number" id="strawberryPercent" placeholder="Default: 5" min="0" max="100" value="5">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Grape Flavor Oil Percentage (%):</label>
+                            <input type="number" id="grapePercent" placeholder="Default: 5" min="0" max="100" value="5">
+                        </div>
+
+                        <div style="text-align: center; margin-top: 30px;">
+                            <button class="btn" onclick="calculateFormula()">Calculate Formula</button>
+                            <button class="btn btn-secondary" onclick="resetCalculator()">Reset</button>
+                            <button class="btn btn-secondary" onclick="adminLogout()">Logout</button>
+                        </div>
+
+                        <span class="error" id="calcError" style="display: block; text-align: center; margin-top: 10px;"></span>
+
+                        <div id="results" class="result-box">
+                            <h4>📋 Your Lipbalm Formula</h4>
+                            <div id="resultContent"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            <p>&copy; 2024 Group 4 - IB Science Project | Natural Lipbalm Investigation</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Made with 💙 and 💗</p>
+        </footer>
+    </div>
+
+    <script>
+        // Section Navigation
+        function showSection(sectionId) {
+            const sections = document.querySelectorAll('.section');
+            sections.forEach(section => {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Admin Login
+        function adminLogin() {
+            const password = document.getElementById('adminPassword').value;
+            const correctPassword = 'admin123'; // In production, use proper authentication
+            
+            if (password === correctPassword) {
+                document.getElementById('loginSection').classList.add('hidden');
+                document.getElementById('calculatorSection').classList.remove('hidden');
+                document.getElementById('loginError').style.display = 'none';
+            } else {
+                document.getElementById('loginError').style.display = 'block';
+            }
+        }
+
+        // Admin Logout
+        function adminLogout() {
+            document.getElementById('loginSection').classList.remove('hidden');
+            document.getElementById('calculatorSection').classList.add('hidden');
+            document.getElementById('adminPassword').value = '';
+            resetCalculator();
+        }
+
+        // Calculate Formula
+        function calculateFormula() {
+            const totalWeight = parseFloat(document.getElementById('totalWeight').value);
+            const sheaPercent = parseFloat(document.getElementById('sheaPercent').value);
+            const beeswaxPercent = parseFloat(document.getElementById('beeswaxPercent').value);
+            const strawberryPercent = parseFloat(document.getElementById('strawberryPercent').value);
+            const grapePercent = parseFloat(document.getElementById('grapePercent').value);
+
+            const errorElement = document.getElementById('calcError');
+            const resultsElement = document.getElementById('results');
+            const resultContent = document.getElementById('resultContent');
+
+            // Validation
+            if (!totalWeight || totalWeight <= 0) {
+                errorElement.textContent = 'Please enter a valid total weight greater than 0';
+                errorElement.style.display = 'block';
+                resultsElement.classList.remove('show');
+                return;
+            }
+
+            const totalPercent = sheaPercent + beeswaxPercent + strawberryPercent + grapePercent;
+            
+            if (Math.abs(totalPercent - 100) > 0.01) {
+                errorElement.textContent = `Total percentage must equal 100%. Current total: ${totalPercent.toFixed(2)}%`;
+                errorElement.style.display = 'block';
+                resultsElement.classList.remove('show');
+                return;
+            }
+
+            // Calculate amounts
+            const sheaAmount = (totalWeight * sheaPercent / 100).toFixed(2);
+            const beeswaxAmount = (totalWeight * beeswaxPercent / 100).toFixed(2);
+            const strawberryAmount = (totalWeight * strawberryPercent / 100).toFixed(2);
+            const grapeAmount = (totalWeight * grapePercent / 100).toFixed(2);
+
+            // Display results
+            errorElement.style.display = 'none';
+            resultContent.innerHTML = `
+                <div class="result-item">
+                    <strong>Total Batch Weight:</strong> ${totalWeight}g
+                </div>
+                <div class="result-item">
+                    <strong>🥥 Shea Butter:</strong> ${sheaAmount}g (${sheaPercent}%)
+                </div>
+                <div class="result-item">
+                    <strong>🐝 Beeswax:</strong> ${beeswaxAmount}g (${beeswaxPercent}%)
+                </div>
+                <div class="result-item">
+                    <strong>🍓 Strawberry Flavor Oil:</strong> ${strawberryAmount}g (${strawberryPercent}%)
+                </div>
+                <div class="result-item">
+                    <strong>🍇 Grape Flavor Oil:</strong> ${grapeAmount}g (${grapePercent}%)
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #FFB6C1; color: white; border-radius: 10px;">
+                    <strong>📝 Instructions:</strong><br>
+                    1. Melt beeswax in a double boiler<br>
+                    2. Add shea butter and stir until melted<br>
+                    3. Remove from heat and let cool slightly<br>
+                    4. Add flavor oils and mix well<br>
+                    5. Pour into containers and let solidify
+                </div>
+            `;
+            resultsElement.classList.add('show');
+        }
+
+        // Reset Calculator
+        function resetCalculator() {
+            document.getElementById('totalWeight').value = '100';
+            document.getElementById('sheaPercent').value = '50';
+            document.getElementById('beeswaxPercent').value = '40';
+            document.getElementById('strawberryPercent').value = '5';
+            document.getElementById('grapePercent').value = '5';
+            document.getElementById('calcError').style.display = 'none';
+            document.getElementById('results').classList.remove('show');
+        }
+
+        // Allow Enter key to login
+        document.getElementById('adminPassword')?.addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                adminLogin();
+            }
+        });
+    </script>
+</body>
+</html>
