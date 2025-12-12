@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Collaborative Science Project - Group 3</title>
+    <title>4 Collaborative Science Project 👀</title>
     <style>
         * {
             margin: 0;
@@ -278,7 +278,7 @@
 <body>
     <div class="container">
         <header>
-            <h1>🌸 DIY Lipbalm Science Project 🌸</h1>
+            <h1>🌸 Natural Lipbalm Project 🌸</h1>
             <p>Group 4 - IB Science Investigation</p>
         </header>
 
@@ -434,10 +434,22 @@
                     <h3>Lipbalm Formula Calculator</h3>
                     <p style="color: #666; margin-bottom: 25px;">
                         Calculate the exact amounts of each ingredient needed for your lipbalm batch. 
-                        Standard ratio is 50% Shea Butter, 40% Beeswax, and 10% Flavor Oil (total).
+                        Choose between Strawberry or Grape flavor!
                     </p>
 
                     <div class="calculator-form">
+                        <div class="form-group">
+                            <label>Select Lipbalm Type:</label>
+                            <div style="display: flex; gap: 15px; justify-content: center; margin-bottom: 20px;">
+                                <button class="btn" id="strawberryBtn" onclick="selectFlavor('strawberry')" style="background: linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%);">
+                                    🍓 Strawberry Lipbalm
+                                </button>
+                                <button class="btn btn-secondary" id="grapeBtn" onclick="selectFlavor('grape')">
+                                    🍇 Grape Lipbalm
+                                </button>
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <label>Total Batch Weight (grams):</label>
                             <input type="number" id="totalWeight" placeholder="e.g., 100" min="1" value="100">
@@ -453,14 +465,9 @@
                             <input type="number" id="beeswaxPercent" placeholder="Default: 40" min="0" max="100" value="40">
                         </div>
 
-                        <div class="form-group">
-                            <label>Strawberry Flavor Oil Percentage (%):</label>
-                            <input type="number" id="strawberryPercent" placeholder="Default: 5" min="0" max="100" value="5">
-                        </div>
-
-                        <div class="form-group">
-                            <label>Grape Flavor Oil Percentage (%):</label>
-                            <input type="number" id="grapePercent" placeholder="Default: 5" min="0" max="100" value="5">
+                        <div class="form-group" id="flavorGroup">
+                            <label id="flavorLabel">🍓 Strawberry Flavor Oil Percentage (%):</label>
+                            <input type="number" id="flavorPercent" placeholder="Default: 10" min="0" max="100" value="10">
                         </div>
 
                         <div style="text-align: center; margin-top: 30px;">
@@ -481,13 +488,15 @@
         </div>
 
         <footer>
-            <p>&copy; 2025 Collaborative Science Project - Group 3 </p>
-            <p>&copy; Askana Ratifa, Adilah Calista, Jeremia Gabriel, Nadin Aqilah, Suryajaya </p>
-          
+            <p>&copy; 2024 Group 4 - IB Science Project | Natural Lipbalm Investigation</p>
+            <p style="margin-top: 10px; font-size: 0.9em;">Made with 💙 and 💗</p>
         </footer>
     </div>
 
     <script>
+        // Track selected flavor
+        let selectedFlavor = 'strawberry';
+
         // Section Navigation
         function showSection(sectionId) {
             const sections = document.querySelectorAll('.section');
@@ -495,6 +504,24 @@
                 section.classList.remove('active');
             });
             document.getElementById(sectionId).classList.add('active');
+        }
+
+        // Select Flavor Type
+        function selectFlavor(flavor) {
+            selectedFlavor = flavor;
+            const strawberryBtn = document.getElementById('strawberryBtn');
+            const grapeBtn = document.getElementById('grapeBtn');
+            const flavorLabel = document.getElementById('flavorLabel');
+            
+            if (flavor === 'strawberry') {
+                strawberryBtn.style.background = 'linear-gradient(135deg, #FFB6C1 0%, #FF69B4 100%)';
+                grapeBtn.style.background = 'linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%)';
+                flavorLabel.innerHTML = '🍓 Strawberry Flavor Oil Percentage (%):';
+            } else {
+                grapeBtn.style.background = 'linear-gradient(135deg, #9370DB 0%, #8A2BE2 100%)';
+                strawberryBtn.style.background = 'linear-gradient(135deg, #ADD8E6 0%, #87CEEB 100%)';
+                flavorLabel.innerHTML = '🍇 Grape Flavor Oil Percentage (%):';
+            }
         }
 
         // Admin Login
@@ -524,8 +551,7 @@
             const totalWeight = parseFloat(document.getElementById('totalWeight').value);
             const sheaPercent = parseFloat(document.getElementById('sheaPercent').value);
             const beeswaxPercent = parseFloat(document.getElementById('beeswaxPercent').value);
-            const strawberryPercent = parseFloat(document.getElementById('strawberryPercent').value);
-            const grapePercent = parseFloat(document.getElementById('grapePercent').value);
+            const flavorPercent = parseFloat(document.getElementById('flavorPercent').value);
 
             const errorElement = document.getElementById('calcError');
             const resultsElement = document.getElementById('results');
@@ -539,7 +565,7 @@
                 return;
             }
 
-            const totalPercent = sheaPercent + beeswaxPercent + strawberryPercent + grapePercent;
+            const totalPercent = sheaPercent + beeswaxPercent + flavorPercent;
             
             if (Math.abs(totalPercent - 100) > 0.01) {
                 errorElement.textContent = `Total percentage must equal 100%. Current total: ${totalPercent.toFixed(2)}%`;
@@ -551,12 +577,18 @@
             // Calculate amounts
             const sheaAmount = (totalWeight * sheaPercent / 100).toFixed(2);
             const beeswaxAmount = (totalWeight * beeswaxPercent / 100).toFixed(2);
-            const strawberryAmount = (totalWeight * strawberryPercent / 100).toFixed(2);
-            const grapeAmount = (totalWeight * grapePercent / 100).toFixed(2);
+            const flavorAmount = (totalWeight * flavorPercent / 100).toFixed(2);
+
+            const flavorIcon = selectedFlavor === 'strawberry' ? '🍓' : '🍇';
+            const flavorName = selectedFlavor === 'strawberry' ? 'Strawberry' : 'Grape';
+            const flavorColor = selectedFlavor === 'strawberry' ? '#FFB6C1' : '#9370DB';
 
             // Display results
             errorElement.style.display = 'none';
             resultContent.innerHTML = `
+                <div style="text-align: center; margin-bottom: 20px; padding: 15px; background: ${flavorColor}; color: white; border-radius: 10px; font-size: 1.2em;">
+                    <strong>${flavorIcon} ${flavorName} Lipbalm Formula</strong>
+                </div>
                 <div class="result-item">
                     <strong>Total Batch Weight:</strong> ${totalWeight}g
                 </div>
@@ -567,18 +599,16 @@
                     <strong>🐝 Beeswax:</strong> ${beeswaxAmount}g (${beeswaxPercent}%)
                 </div>
                 <div class="result-item">
-                    <strong>🍓 Strawberry Flavor Oil:</strong> ${strawberryAmount}g (${strawberryPercent}%)
-                </div>
-                <div class="result-item">
-                    <strong>🍇 Grape Flavor Oil:</strong> ${grapeAmount}g (${grapePercent}%)
+                    <strong>${flavorIcon} ${flavorName} Flavor Oil:</strong> ${flavorAmount}g (${flavorPercent}%)
                 </div>
                 <div style="margin-top: 20px; padding: 15px; background: #FFB6C1; color: white; border-radius: 10px;">
                     <strong>📝 Instructions:</strong><br>
                     1. Melt beeswax in a double boiler<br>
                     2. Add shea butter and stir until melted<br>
-                    3. Remove from heat and let cool slightly<br>
-                    4. Add flavor oils and mix well<br>
-                    5. Pour into containers and let solidify
+                    3. Remove from heat and let cool slightly (about 2-3 minutes)<br>
+                    4. Add ${flavorName.toLowerCase()} flavor oil and mix well<br>
+                    5. Pour into containers immediately<br>
+                    6. Let solidify at room temperature (1-2 hours)
                 </div>
             `;
             resultsElement.classList.add('show');
@@ -586,13 +616,14 @@
 
         // Reset Calculator
         function resetCalculator() {
+            selectedFlavor = 'strawberry';
             document.getElementById('totalWeight').value = '100';
             document.getElementById('sheaPercent').value = '50';
             document.getElementById('beeswaxPercent').value = '40';
-            document.getElementById('strawberryPercent').value = '5';
-            document.getElementById('grapePercent').value = '5';
+            document.getElementById('flavorPercent').value = '10';
             document.getElementById('calcError').style.display = 'none';
             document.getElementById('results').classList.remove('show');
+            selectFlavor('strawberry');
         }
 
         // Allow Enter key to login
